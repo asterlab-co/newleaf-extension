@@ -1,0 +1,86 @@
+<script lang="ts">
+  import { settings } from '../../state/settings.svelte';
+  import { clock } from '../../state/clock.svelte';
+  import { formatDate, dateFormatIds } from '../../utils/time';
+  import { Checkbox } from '../../components';
+</script>
+
+
+<div class="date-settings">
+  <section class="date-visibility">
+    <Checkbox bind:checked={settings.showDate}>Show date</Checkbox>
+  </section>
+
+  {#if settings.showDate}
+    <section class="date-format">
+      <h2 class="section-title">Date format</h2>
+
+      <div class="options options--stack">
+        {#each dateFormatIds as id (id)}
+          <button
+            class="option"
+            class:option--active={settings.dateFormat === id}
+            aria-pressed={settings.dateFormat === id}
+            onclick={() => (settings.dateFormat = id)}
+          >
+            {formatDate(clock.now, id)}
+          </button>
+        {/each}
+      </div>
+    </section>
+  {/if}
+</div>
+
+
+<style>
+  .date-settings {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3.33vw, 2rem);
+  }
+
+  .date-visibility,
+  .date-format {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .section-title {
+    color: var(--color-foreground-subtle);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 4%;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .options--stack {
+    align-items: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: 100%;
+  }
+
+  .option {
+    background: transparent;
+    border: 1px solid var(--color-slate-80);
+    border-radius: 0.5rem;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    padding: 0.5rem 1rem;
+  }
+
+  .option--active {
+    border-color: var(--color-lemon-50);
+    color: var(--color-lemon-50);
+  }
+</style>

@@ -1,0 +1,16 @@
+:root {
+  --color-lemon-50: hsl(75 50 64);
+  --color-slate-10: hsl(200 10 98);
+  --color-slate-20: hsl(200 10 90);
+  --color-slate-30: hsl(200 10 80);
+  --color-slate-40: hsl(200 10 72);
+  --color-slate-70: hsl(200 10 48);
+  --color-slate-80: hsl(200 10 40);
+  --color-slate-90: hsl(200 12 32);
+  --color-slate-100: hsl(200 16 24);
+  --color-slate-105: hsl(200 20 20);
+
+  --color-foreground-strong: hsl(from var(--color-slate-10) h s l / .8);
+  --color-foreground-default: var(--color-slate-30);
+  --color-foreground-subtle: var(--color-slate-40);
+}

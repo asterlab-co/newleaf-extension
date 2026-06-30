@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100vh;
+  width: 100%;
+}
+
+html {
+  font: normal 16px sans-serif;
+}
+
+body {
+  background: var(--color-slate-100);
+  color: var(--color-foreground-default);
+  display: flow-root;
+  font: normal 1.125rem var(--font-family-text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2%;
+}
+
+a,
+button {
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}

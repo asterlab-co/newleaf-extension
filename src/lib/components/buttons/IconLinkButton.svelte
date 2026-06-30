@@ -1,0 +1,57 @@
+<script lang="ts">
+  import type { Snippet } from 'svelte'
+
+  let {
+    href = '#',
+    onclick,
+    icon,
+    label,
+  }: {
+    href?: string
+    onclick?: (e: MouseEvent) => void
+    icon: Snippet
+    /** Accessible name for the link, since there is no visible text. */
+    label: string
+  } = $props()
+</script>
+
+<a class="icon-link-button" {href} {onclick} aria-label={label} title={label}>
+  <span class="icon-link-button__icon">{@render icon()}</span>
+</a>
+
+<style>
+  .icon-link-button {
+    --size-icon-link-button: 3.5rem;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    background: hsl(from var(--color-slate-100) h s l / 0.4);
+    border: 1px solid hsl(from var(--color-slate-10) h s l / 0.15);
+    border-radius: 50%;
+    color: var(--color-foreground-strong);
+    display: inline-flex;
+    height: var(--size-icon-link-button);
+    justify-content: center;
+    text-decoration: none;
+    transition: background 150ms ease, border-color 150ms ease;
+    width: var(--size-icon-link-button);
+  }
+
+  .icon-link-button:hover {
+    background: hsl(from var(--color-slate-100) h s l / 0.6);
+    border-color: var(--color-lemon-50);
+  }
+
+  .icon-link-button__icon {
+    --size-icon-link-button-icon: 1.75rem;
+    display: inline-flex;
+    height: var(--size-icon-link-button-icon);
+    width: var(--size-icon-link-button-icon);
+  }
+
+  /* Make any SVG passed in fill the icon slot and inherit the foreground color. */
+  .icon-link-button__icon :global(svg) {
+    fill: currentColor;
+    height: 100%;
+    width: 100%;
+  }
+</style>
