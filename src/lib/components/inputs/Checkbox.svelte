@@ -24,7 +24,7 @@
   }
 
   .check input {
-    accent-color: var(--color-lemon-50);
+    accent-color: var(--color-lime-50);
     cursor: pointer;
   }
 </style>

@@ -76,8 +76,8 @@
   }
 
   .option--active {
-    border-color: var(--color-lemon-50);
-    color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
+    color: var(--color-lime-50);
   }
 
   /* A checkbox sitting below the format options needs the same gap.

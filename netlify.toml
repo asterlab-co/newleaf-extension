@@ -1,3 +1,10 @@
+# Serve the standalone privacy page at the clean /privacy URL.
+[[redirects]]
+from = "/privacy"
+to = "/privacy.html"
+status = 200
+
+# SPA fallback: everything else serves the new tab app.
 [[redirects]]
 from = "/*"
 to = "/"

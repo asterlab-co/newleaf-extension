@@ -38,7 +38,7 @@
 
   .icon-link-button:hover {
     background: hsl(from var(--color-slate-100) h s l / 0.6);
-    border-color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
   }
 
   .icon-link-button__icon {

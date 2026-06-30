@@ -39,7 +39,8 @@ export function sortLinks(links: QuickLink[], sort: LinkSort): QuickLink[] {
 export function normalizeUrl(input: string): string {
   const trimmed = input.trim()
   if (!trimmed) return ''
-  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  // Already has a scheme (https://, chrome://, file://, etc.) — leave as-is.
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)) return trimmed
   return `https://${trimmed}`
 }
 

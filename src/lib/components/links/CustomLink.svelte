@@ -6,9 +6,36 @@
 
   // First letter shown in the circle: from the label when set, else the hostname.
   let initial = $derived((link.label.trim() || hostname(link.url)).charAt(0).toUpperCase());
+
+  // Chrome blocks navigating to privileged schemes (chrome://, chrome-extension://,
+  // about:, etc.) from a normal anchor click, so those links silently do nothing.
+  // Open them through the extension tabs API instead.
+  const PRIVILEGED_SCHEME = /^(?!https?:)[a-z][a-z0-9+.-]*:/i;
+
+  function handleClick(event: MouseEvent) {
+    if (!PRIVILEGED_SCHEME.test(link.url)) return;
+    // A plain anchor to a privileged scheme is blocked by the browser either
+    // way, so always cancel it; we can only open these via the extension API.
+    event.preventDefault();
+    const tabs = (globalThis as any).chrome?.tabs;
+    if (!tabs?.create) {
+      console.warn(
+        `[newleaf] Cannot open "${link.url}": chrome.tabs is unavailable. ` +
+          `Open this page as the installed extension's new tab, not the dev server.`,
+      );
+      return;
+    }
+    tabs.create({ url: link.url });
+  }
 </script>
 
-<a class="custom-link" href={link.url} target="_blank" rel="noopener noreferrer">
+<a
+  class="custom-link"
+  href={link.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  onclick={handleClick}
+>
   <span class="custom-link__initial" aria-hidden="true">{initial}</span>
   {link.label}
   <i class="icon">
@@ -33,7 +60,7 @@
 
   .custom-link:hover {
     background: hsl(from var(--color-slate-100) h s l / 0.6);
-    border-color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
   }
 
   .custom-link__initial {

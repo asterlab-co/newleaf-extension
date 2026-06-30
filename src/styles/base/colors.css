@@ -1,5 +1,10 @@
+/*
+  primitive color tokens
+*/
+
 :root {
-  --color-lemon-50: hsl(75 50 64);
+  --color-lime-50: hsl(75 50 64);
+
   --color-slate-10: hsl(200 10 98);
   --color-slate-20: hsl(200 10 90);
   --color-slate-30: hsl(200 10 80);
@@ -9,6 +14,15 @@
   --color-slate-90: hsl(200 12 32);
   --color-slate-100: hsl(200 16 24);
   --color-slate-105: hsl(200 20 20);
+}
+
+
+/*
+  semantic color tokens
+*/
+
+:root {
+  --color-accent: var(--color-lime-50);
 
   --color-foreground-strong: hsl(from var(--color-slate-10) h s l / .8);
   --color-foreground-default: var(--color-slate-30);

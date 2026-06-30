@@ -251,7 +251,7 @@
   }
 
   .sort__select:focus {
-    border-color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
     outline: none;
   }
 
@@ -369,12 +369,12 @@
   }
 
   .input:focus {
-    border-color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
     outline: none;
   }
 
   .add {
-    background: var(--color-lemon-50);
+    background: var(--color-lime-50);
     border: 0;
     border-radius: 0.5rem;
     color: var(--color-slate-105);

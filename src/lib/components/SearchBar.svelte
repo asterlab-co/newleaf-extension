@@ -34,7 +34,7 @@
   }
 
   .search:focus-within {
-    border-color: var(--color-lemon-50);
+    border-color: var(--color-lime-50);
   }
 
   .search__icon {
