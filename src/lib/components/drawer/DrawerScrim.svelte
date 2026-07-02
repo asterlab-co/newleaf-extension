@@ -9,12 +9,12 @@
 <style>
   .drawer-scrim {
     backdrop-filter: blur(.25rem);
-    background: hsl(from var(--color-slate-100) h s l / 0.75);
+    background: hsl(from var(--color-background-dark) h s l / 0.6);
     cursor: pointer;
     inset: 0;
     opacity: 0;
     position: absolute;
-    transition: opacity 300ms ease;
+    transition: opacity 250ms ease;
   }
 
   .drawer-scrim.open {
@@ -23,7 +23,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .drawer-scrim {
-      transition-duration: 0;
+      transition-duration: 0ms;
     }
   }
 </style>

@@ -78,8 +78,8 @@
   }
 
   .drawer__panel {
-    background: var(--color-slate-105);
-    box-shadow: -0.5rem 0 1.5rem hsl(from var(--color-slate-100) h s l / 0.4);
+    background: var(--color-background-default);
+    box-shadow: -0.5rem 0 1.5rem hsl(from var(--color-background-dark) h s l / 0.8);
     color: var(--color-slate-10);
     height: 100%;
     outline: none;
@@ -89,8 +89,8 @@
     top: 0;
     transform: translateX(100%);
     /* easeOutCubic */
-    transition: transform 400ms cubic-bezier(0.33, 1, 0.68, 1);
-    width: min(100%, 60rem);
+    transition: transform 250ms cubic-bezier(0.33, 1, 0.68, 1);
+    width: min(100%, 50rem);
   }
 
   .drawer.open .drawer__panel {
@@ -99,7 +99,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .drawer__panel {
-      transition-duration: 0;
+      transition-duration: 0ms;
     }
   }
 </style>

@@ -80,7 +80,7 @@
   }
 
   .option--active {
-    border-color: var(--color-lime-50);
-    color: var(--color-lime-50);
+    border-color: var(--color-accent-default);
+    color: var(--color-accent-default);
   }
 </style>

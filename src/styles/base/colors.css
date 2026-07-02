@@ -3,17 +3,26 @@
 */
 
 :root {
-  --color-lime-50: hsl(75 50 64);
+  --color-clay: hsl(10 65% 68%); /* #E28A76 */
+  --color-mist: hsl(200 10% 90%); /* #E3E6E8 */
+  --color-shadow: hsl(200 20% 20%); /* #29363D */
+  --color-willow: hsl(75 50% 64%); /* #BAD175 */
 
-  --color-slate-10: hsl(200 10 98);
-  --color-slate-20: hsl(200 10 90);
-  --color-slate-30: hsl(200 10 80);
-  --color-slate-40: hsl(200 10 72);
-  --color-slate-70: hsl(200 10 48);
-  --color-slate-80: hsl(200 10 40);
-  --color-slate-90: hsl(200 12 32);
-  --color-slate-100: hsl(200 16 24);
-  --color-slate-105: hsl(200 20 20);
+  --color-clay-50: hsl(from var(--color-clay) h s 68%);
+
+  --color-mist-20: hsl(from var(--color-mist) h s 90%);
+
+  --color-shadow-105: hsl(from var(--color-shadow) h s 20%);
+  --color-shadow-110: hsl(from var(--color-shadow) h s 15%);
+
+  --color-willow-50: hsl(from var(--color-willow) h s 64%);
+
+  --color-slate-10: hsl(200 10% 98%);
+  --color-slate-20: hsl(200 10% 90%);
+  --color-slate-30: hsl(200 10% 80%);
+  --color-slate-40: hsl(200 10% 72%);
+  --color-slate-70: hsl(200 10% 48%);
+  --color-slate-80: hsl(200 10% 40%);
 }
 
 
@@ -22,7 +31,14 @@
 */
 
 :root {
-  --color-accent: var(--color-lime-50);
+  --color-accent-default: var(--color-willow-50);
+
+  --color-danger-default: var(--color-clay-50);
+
+  --color-background-default: var(--color-shadow-105);
+  --color-background-dark: var(--color-shadow-110);
+
+  --color-foreground-contrast-default: var(--color-shadow-105);
 
   --color-foreground-strong: hsl(from var(--color-slate-10) h s l / .8);
   --color-foreground-default: var(--color-slate-30);

@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background: var(--color-slate-100);
+  background: var(--color-background-default);
   color: var(--color-foreground-default);
   display: flow-root;
   font: normal 1.125rem var(--font-family-text);

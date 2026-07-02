@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "newleaf",
-  "version": "0.0.2",
-  "description": "Beautiful, calm, and fast new tab page with date, time, search, and your favorite links. No clutter, no permissions, no tracking.",
+  "version": "0.0.3",
+  "description": "Beautiful, calm, and fast new tab page with date, time, and your favorite links. No clutter, no permissions, no tracking.",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",

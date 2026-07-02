@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Clock, CustomLinkGroup, DrawerSettingsButton, Screen, ScreenContent, SearchBar } from '../../components';
+  import { DateTime, CustomLinkGroup, DrawerSettingsButton, Screen, ScreenContent } from '../../components';
   import { settings } from '../../state/settings.svelte';
   import { randomBackgroundUrl } from '../../utils/backgrounds';
 
@@ -9,10 +9,7 @@
 
 <Screen {background}>
   <ScreenContent>
-    <Clock />
-    {#if settings.showSearch}
-      <SearchBar />
-    {/if}
+    <DateTime />
     <CustomLinkGroup />
 
     <DrawerSettingsButton onOpen={onNavigate} />

@@ -1,11 +1,9 @@
 <script lang="ts">
   import { ArrowUpRightIcon } from 'phosphor-svelte';
-  import { hostname, type QuickLink } from '../../utils/links';
+  import { displayName, type QuickLink } from '../../utils/links';
+  import LinkInitial from './LinkInitial.svelte';
 
   let { link }: { link: QuickLink } = $props();
-
-  // First letter shown in the circle: from the label when set, else the hostname.
-  let initial = $derived((link.label.trim() || hostname(link.url)).charAt(0).toUpperCase());
 
   // Chrome blocks navigating to privileged schemes (chrome://, chrome-extension://,
   // about:, etc.) from a normal anchor click, so those links silently do nothing.
@@ -36,8 +34,10 @@
   rel="noopener noreferrer"
   onclick={handleClick}
 >
-  <span class="custom-link__initial" aria-hidden="true">{initial}</span>
-  {link.label}
+  <span class="custom-link__initial">
+    <LinkInitial {link} />
+  </span>
+  {displayName(link)}
   <i class="icon">
     <ArrowUpRightIcon weight="bold" />
   </i>
@@ -47,7 +47,7 @@
   .custom-link {
     align-items: center;
     backdrop-filter: blur(8px);
-    background: hsl(from var(--color-slate-100) h s l / 0.4);
+    background: hsl(from var(--color-background-default) h s l / 0.45);
     border: 1px solid hsl(from var(--color-slate-10) h s l / 0.15);
     border-radius: 999px;
     color: inherit;
@@ -59,25 +59,13 @@
   }
 
   .custom-link:hover {
-    background: hsl(from var(--color-slate-100) h s l / 0.6);
-    border-color: var(--color-lime-50);
+    background: hsl(from var(--color-background-dark) h s l / 0.5);
+    border-color: var(--color-accent-default);
   }
 
   .custom-link__initial {
-    --size-custom-link-initial: 1.375rem;
-    align-items: center;
-    background: hsl(from var(--color-slate-10) h s l / 0.8);
-    border-radius: 50%;
-    color: var(--color-slate-100);
     display: inline-flex;
-    flex-shrink: 0;
-    font-size: 0.875rem;
-    font-weight: 600;
-    height: var(--size-custom-link-initial);
-    justify-content: center;
-    line-height: 1;
     margin: 0 .125rem -.125rem 0;
-    width: var(--size-custom-link-initial);
   }
 
   .custom-link .icon {

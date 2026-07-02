@@ -23,8 +23,9 @@ const MONTHS_LONG = [
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/** Returns the zero-padded time (HH:MM, or HH:MM:SS with seconds) and a period
- *  ('' for 24h, 'AM'/'PM' for 12h). */
+/** Returns the time (H:MM in 12h, HH:MM in 24h, with :SS when seconds are on)
+ *  and a period ('' for 24h, 'AM'/'PM' for 12h). Hours are only zero-padded in
+ *  24h mode — "9:41 AM" but "09:41". */
 export function formatTime(
   date: Date,
   format: TimeFormat,
@@ -36,7 +37,7 @@ export function formatTime(
     period = hours < 12 ? 'AM' : 'PM'
     hours = hours % 12 || 12
   }
-  const parts = [pad(hours), pad(date.getMinutes())]
+  const parts = [format === '12h' ? String(hours) : pad(hours), pad(date.getMinutes())]
   if (showSeconds) parts.push(pad(date.getSeconds()))
   return { time: parts.join(':'), period }
 }

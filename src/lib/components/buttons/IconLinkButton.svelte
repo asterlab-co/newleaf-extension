@@ -24,7 +24,7 @@
     --size-icon-link-button: 3.5rem;
     align-items: center;
     backdrop-filter: blur(8px);
-    background: hsl(from var(--color-slate-100) h s l / 0.4);
+    background: hsl(from var(--color-background-default) h s l / 0.45);
     border: 1px solid hsl(from var(--color-slate-10) h s l / 0.15);
     border-radius: 50%;
     color: var(--color-foreground-strong);
@@ -37,8 +37,8 @@
   }
 
   .icon-link-button:hover {
-    background: hsl(from var(--color-slate-100) h s l / 0.6);
-    border-color: var(--color-lime-50);
+    background: hsl(from var(--color-background-dark) h s l / 0.5);
+    border-color: var(--color-accent-default);
   }
 
   .icon-link-button__icon {

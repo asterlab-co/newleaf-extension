@@ -1,16 +1,15 @@
 // App-wide user settings, reactive and persisted to localStorage.
 import type { DateFormatId, TimeFormat } from '../utils/time'
-import type { QuickLink, LinkSort } from '../utils/links'
+import { randomLinkColor, type QuickLink, type LinkSort } from '../utils/links'
 
 const STORAGE_KEY = 'newleaf:settings'
 
 interface Settings {
   timeFormat: TimeFormat
   dateFormat: DateFormatId
-  showClock: boolean
+  showTime: boolean
   showSeconds: boolean
   showDate: boolean
-  showSearch: boolean
   showLinks: boolean
   quickLinks: QuickLink[]
   linkSort: LinkSort
@@ -19,25 +18,31 @@ interface Settings {
 const defaults: Settings = {
   timeFormat: '12h',
   dateFormat: 'dddd_mmmm_d_yyyy',
-  showClock: true,
+  showTime: true,
   showSeconds: false,
   showDate: true,
-  showSearch: true,
   showLinks: true,
   quickLinks: [],
-  linkSort: 'custom',
+  linkSort: 'alpha',
 }
 
 function load(): Settings {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
-      const merged: Settings = { ...defaults, ...JSON.parse(raw) }
-      // Backfill addedAt for links saved before timestamps existed, keeping
-      // their stored order as the implied add order.
+      const stored = JSON.parse(raw)
+      const merged: Settings = { ...defaults, ...stored }
+      // Migrate the renamed visibility flag: showClock (≤0.0.3) → showTime.
+      if (typeof stored.showTime !== 'boolean' && typeof stored.showClock === 'boolean') {
+        merged.showTime = stored.showClock
+      }
+      delete (merged as unknown as Record<string, unknown>).showClock
+      // Backfill fields links saved by older versions lack: addedAt (keeping
+      // stored order as the implied add order) and the badge color.
       merged.quickLinks = merged.quickLinks.map((link, i) => ({
         ...link,
         addedAt: typeof link.addedAt === 'number' ? link.addedAt : i,
+        color: typeof link.color === 'string' ? link.color : randomLinkColor(),
       }))
       return merged
     }

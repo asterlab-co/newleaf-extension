@@ -51,8 +51,8 @@
   }
 
   .tab--active {
-    border-bottom-color: var(--color-lime-50);
-    color: var(--color-lime-50);
+    border-bottom-color: var(--color-accent-default);
+    color: var(--color-accent-default);
     opacity: 1;
   }
 </style>

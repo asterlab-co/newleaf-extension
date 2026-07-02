@@ -12,10 +12,10 @@
 
 <div class="time-settings">
   <section class="time-visibility">
-    <Checkbox bind:checked={settings.showClock}>Show time</Checkbox>
+    <Checkbox bind:checked={settings.showTime}>Show time</Checkbox>
   </section>
 
-  {#if settings.showClock}
+  {#if settings.showTime}
     <section class="time-format">
       <h2 class="section-title">Time format</h2>
       <div class="options">
@@ -76,8 +76,8 @@
   }
 
   .option--active {
-    border-color: var(--color-lime-50);
-    color: var(--color-lime-50);
+    border-color: var(--color-accent-default);
+    color: var(--color-accent-default);
   }
 
   /* A checkbox sitting below the format options needs the same gap.
