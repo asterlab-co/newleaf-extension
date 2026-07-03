@@ -58,7 +58,7 @@
   .options {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: .75rem .625rem;
   }
 
   .options--stack {
@@ -71,12 +71,12 @@
 
   .option {
     background: transparent;
-    border: 1px solid var(--color-slate-80);
-    border-radius: 0.5rem;
+    border: 1.5px solid var(--color-border-default);
+    border-radius: 1.25rem;
     color: inherit;
     cursor: pointer;
     font: inherit;
-    padding: 0.5rem 1rem;
+    padding: .625rem 1.25rem;
   }
 
   .option--active {

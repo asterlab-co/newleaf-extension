@@ -3,6 +3,8 @@
   import { settings } from '../../state/settings.svelte'
   import { formatTime, formatDate } from '../../utils/time'
 
+  let { background }: { background?: string } = $props()
+
   let time = $derived(formatTime(clock.now, settings.timeFormat, settings.showSeconds))
   let date = $derived(formatDate(clock.now, settings.dateFormat))
 </script>
@@ -12,7 +14,11 @@
     <div class="datetime__date">{date}</div>
   {/if}
   {#if settings.showTime}
-    <div class="datetime__time">
+    <div
+      class="datetime__time"
+      class:datetime__time--masked={!!background}
+      style:--clock-photo={background ? `url("${background}")` : undefined}
+    >
       {time.time}{#if time.period}<span class="datetime__period">{time.period}</span>{/if}
     </div>
   {/if}
@@ -52,5 +58,26 @@
     );
     background-clip: text;
     color: transparent;
+  }
+
+  /* Show the background photo through the digits, inverted and slightly
+     lightened. fixed attachment + center/cover reproduces the geometry of the
+     fixed full-viewport .screen__bg layer, so the image lines up with the
+     photo behind it. The photo comes from an inline --clock-photo; without a
+     background the gradient above stays in effect.
+
+     The gradient layer is a contrast floor: it paints BLACK over the photo
+     before the filter runs, which invert(1) flips into a white wash on the
+     final digits — keeping them legibly light even where the photo's
+     mid-tones would otherwise invert to something close to the backdrop. */
+  .datetime__time--masked {
+    background-attachment: fixed;
+    background-image:
+      linear-gradient(hsl(0 0% 0% / 0.3), hsl(0 0% 0% / 0.3)),
+      var(--clock-photo);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: invert(1) brightness(1.1) drop-shadow(0 1px 12px hsl(0 0% 0% / 0.35));
   }
 </style>

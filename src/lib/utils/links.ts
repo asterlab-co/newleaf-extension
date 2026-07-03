@@ -11,6 +11,11 @@ export interface QuickLink {
   addedAt: number
 }
 
+/** Cap on stored quick links. Storage could hold thousands, but the
+ *  dashboard's wrapping link rows and the settings list degrade well before
+ *  that — this keeps the worst case bounded. */
+export const MAX_QUICK_LINKS = 50;
+
 /** Preset badge colors: 12 light pastels, hues ascending from 0 to 359. Hex
  *  because `<input type="color">` only accepts #rrggbb. */
 export const LINK_COLOR_PRESETS: string[] = Array.from({ length: 12 }, (_, i) =>

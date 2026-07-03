@@ -9,7 +9,7 @@
 
 <Screen {background}>
   <ScreenContent>
-    <DateTime />
+    <DateTime {background} />
     <CustomLinkGroup />
 
     <DrawerSettingsButton onOpen={onNavigate} />

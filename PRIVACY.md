@@ -1,6 +1,6 @@
 # Privacy Policy for newleaf
 
-**Last updated: June 30, 2026**
+**Last updated: July 3, 2026**
 
 newleaf is a browser extension that replaces your new tab page with a clean
 dashboard showing the date, time, and your favorite links. This policy explains
@@ -20,8 +20,10 @@ by us, and no user accounts. We never see your data, because it never reaches us
 The following is saved locally in your browser's `localStorage` and never leaves
 your device or gets sent to us:
 
-- **Your quick links** — the labels and URLs you add.
-- **Your settings** — such as 12/24-hour time, date format, and link ordering.
+- **Your quick links** — the labels and URLs you add, plus each link's badge
+  color and the date it was added.
+- **Your settings** — such as 12/24-hour time, date format, link ordering, and
+  which dashboard elements are shown.
 
 This data lives only in the browser profile where you use newleaf. You can erase
 all of it at any time by removing the extension or clearing your browser's site
@@ -30,7 +32,7 @@ data for the new tab page.
 ## Third-party requests
 
 **None.** newleaf makes no network requests. It does not use any third-party
-services, advertising networks, or analytics providers. The background photos
+services, advertising networks, or analytics providers. The background images
 and fonts are bundled inside the extension and are not fetched from any external
 source.
 

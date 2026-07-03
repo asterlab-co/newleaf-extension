@@ -53,7 +53,7 @@
 
 <style>
   .tabs {
-    border-bottom: 1px solid var(--color-slate-80);
+    border-bottom: 1.5px solid var(--color-border-default);
     display: flex;
     gap: 1rem;
   }

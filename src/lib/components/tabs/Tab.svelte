@@ -24,6 +24,7 @@
   id={`tab-${id}`}
   class="tab"
   class:tab--active={selected}
+  aria-controls={`panel-${id}`}
   aria-selected={selected}
   tabindex={selected ? 0 : -1}
   onclick={onActivate}

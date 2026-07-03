@@ -18,9 +18,10 @@ body {
   background: var(--color-background-default);
   color: var(--color-foreground-default);
   display: flow-root;
-  font: normal 1.125rem var(--font-family-text);
+  font: normal 1em var(--font-family-text);
   font-variant-numeric: tabular-nums;
   letter-spacing: 2%;
+  line-height: 1.6;
 }
 
 a,

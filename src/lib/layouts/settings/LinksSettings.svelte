@@ -15,6 +15,7 @@
     sortLinks,
     randomLinkColor,
     LINK_SORTS,
+    MAX_QUICK_LINKS,
     type QuickLink,
   } from '../../utils/links'
   import { Checkbox, ColorPicker, LinkInitial, TextField } from '../../components'
@@ -54,6 +55,9 @@
   let orderedLinks = $derived(sortLinks(settings.quickLinks, settings.linkSort))
   // Manual reordering only applies to the custom (manual) order.
   let canReorder = $derived(settings.linkSort === 'custom')
+  // At the cap the "+" button disables; add() re-checks in case the form was
+  // already open when the last slot filled.
+  let atLinkLimit = $derived(settings.quickLinks.length >= MAX_QUICK_LINKS)
 
   // Focus moves between the "+" button and the form, but the target is inert
   // until the DOM reflects the toggle — hence the tick() before focusing.
@@ -79,6 +83,7 @@
 
   function add(e: SubmitEvent) {
     e.preventDefault()
+    if (atLinkLimit) return
     const href = normalizeUrl(url)
     if (!href) return
     if (!isValidUrl(href)) {
@@ -161,69 +166,59 @@
     <Checkbox bind:checked={settings.showLinks}>Show links</Checkbox>
   </section>
 
-  <section class="links-list">
-    <!-- The heading row and the add form share one grid cell: the form
-         cross-fades in over the heading while the cell animates to the form's
-         height (the 0fr → 1fr grid-row trick). Both stay mounted; `inert`
-         hides the inactive one from pointer and tab order. -->
-    <div class="links-header">
-      <div class="links-header__row" inert={adding}>
-        <h2 class="section-title">Your links</h2>
-        <div class="links-header__controls">
-          {#if settings.quickLinks.length > 1}
-            <select
-              class="sort__select"
-              bind:value={settings.linkSort}
-              aria-label="Sort links"
-              title="Sort links"
-            >
-              {#each LINK_SORTS as opt (opt.id)}
-                <option value={opt.id}>{opt.label}</option>
-              {/each}
-            </select>
-          {/if}
-          <button
-            bind:this={addButton}
-            type="button"
-            class="accent-button"
-            onclick={openAdd}
-            aria-expanded={adding}
-            aria-controls="add-link-form"
-            aria-label="Add a link"
-            title="Add a link"
-          >
-            <PlusIcon />
-          </button>
+  {#if settings.showLinks}
+    <section class="links-list">
+      <!-- The heading row and the add form share one grid cell: the form
+           cross-fades in over the heading while the cell animates to the form's
+           height (the 0fr → 1fr grid-row trick). Both stay mounted; `inert`
+           hides the inactive one from pointer and tab order. -->
+      <div class="links-header">
+        <div class="links-header__row" inert={adding}>
+          <h2 class="section-title">Your links</h2>
+          <div class="links-header__controls">
+            {#if settings.quickLinks.length > 1}
+              <select
+                class="sort__select"
+                bind:value={settings.linkSort}
+                aria-label="Sort links"
+                title="Sort links"
+              >
+                {#each LINK_SORTS as opt (opt.id)}
+                  <option value={opt.id}>{opt.label}</option>
+                {/each}
+              </select>
+            {/if}
+            {#if !atLinkLimit}
+              <button
+                bind:this={addButton}
+                type="button"
+                class="accent-button"
+                onclick={openAdd}
+                aria-expanded={adding}
+                aria-controls="add-link-form"
+                aria-label="Add a link"
+                title="Add a link"
+              >
+                <PlusIcon />
+              </button>
+            {/if}
+          </div>
         </div>
-      </div>
 
-      <div class="add-wrap" class:add-wrap--open={adding}>
-        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -- the
-             keydown is only an Escape-to-close shortcut; every control inside
-             remains fully keyboard-operable without it. -->
-        <form
-          id="add-link-form"
-          class="add-form"
-          inert={!adding}
-          onsubmit={add}
-          onkeydown={onAddKeydown}
-        >
-          <div class="link-form__fields">
-            <div class="link-form__field link-form__field--url">
-              <TextField
-                label="Link URL"
-                placeholder="example.com"
-                inputmode="url"
-                required
-                error={urlError}
-                bind:value={url}
-                bind:ref={addUrlInput}
-              />
-            </div>
-            <div class="link-form__field">
-              <TextField label="Label (optional)" bind:value={label} />
-            </div>
-            <div class="link-form__actions">
+        <div class="add-wrap" class:add-wrap--open={adding}>
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -- the
+               keydown is only an Escape-to-close shortcut; every control inside
+               remains fully keyboard-operable without it. -->
+          <form
+            id="add-link-form"
+            class="add-form"
+            inert={!adding}
+            onsubmit={add}
+            onkeydown={onAddKeydown}
+            aria-labelledby="add-link-title"
+          >
+            <div class="link-form__header">
+              <h3 class="section-title" id="add-link-title">Add link</h3>
               <button
                 type="button"
                 class="icon-button"
@@ -233,45 +228,52 @@
               >
                 <XIcon />
               </button>
-              <button type="submit" class="accent-button" aria-label="Add link" title="Add">
+            </div>
+            <div class="link-form__fields">
+              <div class="link-form__field link-form__field--url">
+                <TextField
+                  label="Link URL"
+                  placeholder="example.com"
+                  inputmode="url"
+                  required
+                  error={urlError}
+                  bind:value={url}
+                  bind:ref={addUrlInput}
+                />
+              </div>
+              <div class="link-form__field">
+                <TextField label="Label (optional)" bind:value={label} />
+              </div>
+              <button
+                type="submit"
+                class="accent-button link-form__submit"
+                aria-label="Add link"
+                title="Add"
+              >
                 <CheckIcon />
               </button>
             </div>
-          </div>
-          <ColorPicker bind:value={color} />
-        </form>
+            <ColorPicker bind:value={color} />
+          </form>
+        </div>
       </div>
-    </div>
 
-    {#if settings.quickLinks.length > 0}
-      <ul class="links">
-        {#each orderedLinks as link (link.id)}
-          <li
-            class="link"
-            class:link--dragging={dragId === link.id}
-            draggable={canReorder && editingId !== link.id}
-            ondragstart={() => (dragId = link.id)}
-            ondragover={onDragOver}
-            ondrop={() => onDrop(link.id)}
-            ondragend={() => (dragId = null)}
-          >
-            {#if editingId === link.id}
-              <form class="link__edit" onsubmit={saveEdit}>
-                <div class="link-form__fields">
-                  <div class="link-form__field link-form__field--url">
-                    <TextField
-                      label="Link URL"
-                      placeholder="example.com"
-                      inputmode="url"
-                      required
-                      error={editUrlError}
-                      bind:value={editUrl}
-                    />
-                  </div>
-                  <div class="link-form__field">
-                    <TextField label="Label (optional)" bind:value={editLabel} />
-                  </div>
-                  <div class="link-form__actions">
+      {#if settings.quickLinks.length > 0}
+        <ul class="links">
+          {#each orderedLinks as link (link.id)}
+            <li
+              class="link"
+              class:link--dragging={dragId === link.id}
+              draggable={canReorder && editingId !== link.id}
+              ondragstart={() => (dragId = link.id)}
+              ondragover={onDragOver}
+              ondrop={() => onDrop(link.id)}
+              ondragend={() => (dragId = null)}
+            >
+              {#if editingId === link.id}
+                <form class="link__edit" onsubmit={saveEdit} aria-labelledby="edit-link-title">
+                  <div class="link-form__header">
+                    <h3 class="section-title" id="edit-link-title">Edit link</h3>
                     <button
                       type="button"
                       class="icon-button"
@@ -281,54 +283,77 @@
                     >
                       <XIcon />
                     </button>
-                    <button type="submit" class="accent-button" aria-label="Save" title="Save">
+                  </div>
+                  <div class="link-form__fields">
+                    <div class="link-form__field link-form__field--url">
+                      <TextField
+                        label="Link URL"
+                        placeholder="example.com"
+                        inputmode="url"
+                        required
+                        error={editUrlError}
+                        bind:value={editUrl}
+                      />
+                    </div>
+                    <div class="link-form__field">
+                      <TextField label="Label (optional)" bind:value={editLabel} />
+                    </div>
+                    <button
+                      type="submit"
+                      class="accent-button link-form__submit"
+                      aria-label="Save"
+                      title="Save"
+                    >
                       <CheckIcon />
                     </button>
                   </div>
-                </div>
-                <ColorPicker bind:value={editColor} />
-              </form>
-            {:else}
-              {#if canReorder}
-                <span class="link__handle" aria-hidden="true" title="Drag to reorder">
-                  <DotsSixVerticalIcon />
+                  <ColorPicker bind:value={editColor} />
+                </form>
+              {:else}
+                <LinkInitial {link} />
+                <span class="link__text">
+                  {#if link.label}
+                    <span class="link__label">{link.label}</span>
+                    <span class="link__url">{hostname(link.url)}</span>
+                  {:else}
+                    <span class="link__label">{hostname(link.url)}</span>
+                  {/if}
                 </span>
-              {/if}
-              <LinkInitial {link} />
-              <span class="link__text">
-                {#if link.label}
-                  <span class="link__label">{link.label}</span>
-                  <span class="link__url">{hostname(link.url)}</span>
-                {:else}
-                  <span class="link__label">{hostname(link.url)}</span>
+                <button
+                  type="button"
+                  class="icon-button"
+                  onclick={() => startEdit(link)}
+                  aria-label={`Edit ${displayName(link)}`}
+                  title="Edit"
+                >
+                  <PencilSimpleIcon />
+                </button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  onclick={() => remove(link.id)}
+                  aria-label={`Remove ${displayName(link)}`}
+                  title="Remove"
+                >
+                  <TrashIcon />
+                </button>
+                {#if canReorder}
+                  <span class="link__handle" aria-hidden="true" title="Drag to reorder">
+                    <DotsSixVerticalIcon />
+                  </span>
                 {/if}
-              </span>
-              <button
-                type="button"
-                class="icon-button"
-                onclick={() => startEdit(link)}
-                aria-label={`Edit ${displayName(link)}`}
-                title="Edit"
-              >
-                <PencilSimpleIcon />
-              </button>
-              <button
-                type="button"
-                class="icon-button"
-                onclick={() => remove(link.id)}
-                aria-label={`Remove ${displayName(link)}`}
-                title="Remove"
-              >
-                <TrashIcon />
-              </button>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <p class="empty">No links yet. Use the + button above to add one to your dashboard.</p>
-    {/if}
-  </section>
+              {/if}
+            </li>
+          {/each}
+        </ul>
+        {#if atLinkLimit}
+          <p class="limit-note">The limit of {MAX_QUICK_LINKS} custom links is reached.</p>
+        {/if}
+      {:else}
+        <p class="empty">No links yet. Use the + button above to add one to your dashboard.</p>
+      {/if}
+    </section>
+  {/if}
 </div>
 
 
@@ -404,33 +429,36 @@
     opacity: 0;
   }
 
-  .link-form__fields {
-    align-items: flex-end;
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  /* The URL is the primary field, so it gets twice the label's width. */
-  .link-form__field {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .link-form__field--url {
-    flex: 2;
-  }
-
-  /* Right-edge rail: cancel in the form's top corner, submit on the input line.
-     The gap keeps the two buttons apart by growing the row past the fields'
-     natural height. */
-  .link-form__actions {
+  /* Title on the left, cancel in the form's top-right corner. */
+  .link-form__header {
     align-items: center;
-    align-self: stretch;
     display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    gap: 0.625rem;
     justify-content: space-between;
+  }
+
+  /* One grid with shared label / input / error rows: the fields subgrid into
+     them, so the two inputs and the submit button stay on the same line even
+     when a validation error adds an error row under the URL field. The URL is
+     the primary field, so it gets twice the label's width. */
+  .link-form__fields {
+    display: grid;
+    gap: 0.25rem 0.75rem;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+  }
+
+  .link-form__field {
+    display: contents;
+  }
+
+  .link-form__fields .link-form__field > :global(.text-field) {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+
+  .link-form__submit {
+    align-self: center;
+    grid-area: 2 / 3;
   }
 
   /* Round accent action: the header's "+" and the forms' submit checkmarks. */
@@ -481,13 +509,13 @@
     appearance: none;
     background: transparent
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23B0BABE' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E")
-      no-repeat right 0.625rem center / 0.75rem;
-    border: 1px solid var(--color-slate-80);
-    border-radius: 0.375rem;
+      no-repeat right 0.75rem center / 0.75rem;
+    border: 1.5px solid var(--color-border-default);
+    border-radius: 1.125rem;
     color: inherit;
     font: inherit;
-    font-size: 0.8125rem;
-    padding: 0.375rem 2rem 0.375rem 0.625rem;
+    font-size: 0.875rem;
+    padding: 0.5rem 2.25rem 0.5rem .875rem;
   }
 
   .sort__select:focus {
@@ -495,7 +523,8 @@
     outline: none;
   }
 
-  .empty {
+  .empty,
+  .limit-note {
     font-size: 0.9375rem;
     opacity: 0.6;
   }
@@ -503,17 +532,19 @@
   .links {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: .75rem;
     list-style: none;
   }
 
   .link {
     align-items: center;
-    border: 1px solid var(--color-slate-80);
-    border-radius: 0.5rem;
+    background: var(--color-background-default);
+    border: 1.5px solid var(--color-border-default);
+    border-radius: 1.25rem;
+    border-radius: 1.25rem;
     display: flex;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: .75rem;
+    padding: .875rem;
   }
 
   .link[draggable='true'] {

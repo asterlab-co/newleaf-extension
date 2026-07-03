@@ -21,15 +21,15 @@
     <TabGroup {tabs} bind:active={activeTab} />
 
     {#if activeTab === 'date'}
-      <div role="tabpanel" aria-labelledby="tab-date">
+      <div role="tabpanel" id="panel-date" aria-labelledby="tab-date">
         <DateSettings />
       </div>
     {:else if activeTab === 'time'}
-      <div role="tabpanel" aria-labelledby="tab-time">
+      <div role="tabpanel" id="panel-time" aria-labelledby="tab-time">
         <TimeSettings />
       </div>
     {:else if activeTab === 'links'}
-      <div role="tabpanel" aria-labelledby="tab-links">
+      <div role="tabpanel" id="panel-links" aria-labelledby="tab-links">
         <LinksSettings />
       </div>
     {/if}

@@ -48,7 +48,7 @@
     align-items: center;
     backdrop-filter: blur(8px);
     background: hsl(from var(--color-background-default) h s l / 0.45);
-    border: 1px solid hsl(from var(--color-slate-10) h s l / 0.15);
+    border: 1.5px solid hsl(from var(--color-border-default) h s l / .3);
     border-radius: 999px;
     color: inherit;
     display: inline-flex;

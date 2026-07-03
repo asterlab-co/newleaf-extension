@@ -79,15 +79,16 @@
 
   .drawer__panel {
     background: var(--color-background-default);
-    box-shadow: -0.5rem 0 1.5rem hsl(from var(--color-background-dark) h s l / 0.8);
-    color: var(--color-slate-10);
+    box-shadow: -0.25rem 0 2rem hsl(from var(--color-background-dark) h s l / 0.4);
+    color: var(--color-foreground-default);
     height: 100%;
     outline: none;
     overflow-y: auto;
     position: absolute;
     right: 0;
     top: 0;
-    transform: translateX(100%);
+    /* Park past 100% so the left-reaching shadow clears the viewport too. */
+    transform: translateX(calc(100% + 3rem));
     /* easeOutCubic */
     transition: transform 250ms cubic-bezier(0.33, 1, 0.68, 1);
     width: min(100%, 50rem);
