@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Dashboard, Settings } from './lib/layouts'
+  import { Dashboard, Settings } from '@lib/layouts'
 
   let view = $state<'main' | 'settings'>('main')
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { clock } from '../../state/clock.svelte'
-  import { settings } from '../../state/settings.svelte'
-  import { formatTime, formatDate } from '../../utils/time'
+  import { clock } from '@lib/state/clock.svelte'
+  import { settings } from '@lib/state/settings.svelte'
+  import { formatTime, formatDate } from '@lib/utils/time'
 
   let { background }: { background?: string } = $props()
 

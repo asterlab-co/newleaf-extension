@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Drawer, DrawerCloseButton, DrawerContent, TabGroup } from '../../components'
+  import { Drawer, DrawerCloseButton, DrawerContent, TabGroup } from '@lib/components'
   import DateSettings from './DateSettings.svelte'
   import TimeSettings from './TimeSettings.svelte'
   import LinksSettings from './LinksSettings.svelte'

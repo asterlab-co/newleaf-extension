@@ -25,14 +25,7 @@
 
   --color-willow-50: hsl(from var(--color-willow) h s 64%); /* base */
 
-  --color-slate-10: hsl(200 10% 98%);
-  --color-slate-20: hsl(200 10% 90%);
-  --color-slate-30: hsl(200 10% 80%);
-  --color-slate-40: hsl(200 10% 72%);
-  --color-slate-70: hsl(200 10% 48%);
-  --color-slate-80: hsl(200 10% 40%);
-  
-  --color-clay-50: hsl(from var(--color-clay) h s 64%);
+  --color-clay-50: hsl(from var(--color-clay) h s 64%); /* base */
 }
 
 
@@ -44,6 +37,7 @@
   --color-accent-default: var(--color-willow-50);
 
   --color-border-default: var(--color-mist-80);
+  --color-border-subtle: hsl(from var(--color-mist-80) h s l / .3);
 
   --color-danger-default: var(--color-clay-50);
 

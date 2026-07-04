@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { settings } from '../../state/settings.svelte';
-  import { type TimeFormat } from '../../utils/time';
-  import { Checkbox } from '../../components';
+  import { settings } from '@lib/state/settings.svelte';
+  import { type TimeFormat } from '@lib/utils/time';
+  import { Checkbox } from '@lib/components';
 
   const timeFormats: { id: TimeFormat; label: string }[] = [
     { id: '12h', label: '12-hour' },

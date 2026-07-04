@@ -6,7 +6,7 @@
   import CheckIcon from 'phosphor-svelte/lib/CheckIcon'
   import PlusIcon from 'phosphor-svelte/lib/PlusIcon'
   import XIcon from 'phosphor-svelte/lib/XIcon'
-  import { settings } from '../../state/settings.svelte'
+  import { settings } from '@lib/state/settings.svelte'
   import {
     normalizeUrl,
     isValidUrl,
@@ -17,8 +17,8 @@
     LINK_SORTS,
     MAX_QUICK_LINKS,
     type QuickLink,
-  } from '../../utils/links'
-  import { Checkbox, ColorPicker, LinkInitial, TextField } from '../../components'
+  } from '@lib/utils/links'
+  import { Checkbox, ColorPicker, LinkInitial, TextField } from '@lib/components'
 
   // The add form expands in place of the "Your links" heading while open.
   let adding = $state(false)
@@ -199,7 +199,7 @@
                 aria-label="Add a link"
                 title="Add a link"
               >
-                <PlusIcon />
+                <PlusIcon weight="bold" />
               </button>
             {/if}
           </div>
@@ -250,7 +250,7 @@
                 aria-label="Add link"
                 title="Add"
               >
-                <CheckIcon />
+                <CheckIcon weight="bold" />
               </button>
             </div>
             <ColorPicker bind:value={color} />
@@ -304,7 +304,7 @@
                       aria-label="Save"
                       title="Save"
                     >
-                      <CheckIcon />
+                      <CheckIcon weight="bold" />
                     </button>
                   </div>
                   <ColorPicker bind:value={editColor} />

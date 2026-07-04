@@ -15,6 +15,7 @@ html {
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
   background: var(--color-background-default);
   color: var(--color-foreground-default);
   display: flow-root;

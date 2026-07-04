@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { settings } from '../../state/settings.svelte';
-  import { sortLinks } from '../../utils/links';
+  import { settings } from '@lib/state/settings.svelte';
+  import { sortLinks } from '@lib/utils/links';
   import CustomLink from './CustomLink.svelte';
 
   let orderedLinks = $derived(sortLinks(settings.quickLinks, settings.linkSort));

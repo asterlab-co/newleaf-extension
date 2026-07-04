@@ -25,7 +25,7 @@
     align-items: center;
     backdrop-filter: blur(8px);
     background: hsl(from var(--color-background-default) h s l / 0.45);
-    border: 1px solid hsl(from var(--color-slate-10) h s l / 0.15);
+    border: 1.5px solid var(--color-border-subtle);
     border-radius: 50%;
     color: var(--color-foreground-strong);
     display: inline-flex;

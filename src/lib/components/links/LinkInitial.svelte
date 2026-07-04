@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { displayName, isLightColor, type QuickLink } from '../../utils/links';
+  import { displayName, isLightColor, type QuickLink } from '@lib/utils/links';
 
   let { link }: { link: QuickLink } = $props();
 
@@ -18,7 +18,7 @@
 
 <style>
   .link-initial {
-    --size-link-initial: 1.375rem;
+    --size-link-initial: 1.625rem;
     align-items: center;
     border-radius: 50%;
     display: inline-flex;

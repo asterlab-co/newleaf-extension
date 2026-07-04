@@ -1,6 +1,6 @@
 // App-wide user settings, reactive and persisted to localStorage.
-import type { DateFormatId, TimeFormat } from '../utils/time'
-import { randomLinkColor, type QuickLink, type LinkSort } from '../utils/links'
+import type { DateFormatId, TimeFormat } from '@lib/utils/time'
+import type { QuickLink, LinkSort } from '@lib/utils/links'
 
 const STORAGE_KEY = 'newleaf:settings'
 
@@ -31,20 +31,7 @@ function load(): Settings {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const stored = JSON.parse(raw)
-      const merged: Settings = { ...defaults, ...stored }
-      // Migrate the renamed visibility flag: showClock (≤0.0.3) → showTime.
-      if (typeof stored.showTime !== 'boolean' && typeof stored.showClock === 'boolean') {
-        merged.showTime = stored.showClock
-      }
-      delete (merged as unknown as Record<string, unknown>).showClock
-      // Backfill fields links saved by older versions lack: addedAt (keeping
-      // stored order as the implied add order) and the badge color.
-      merged.quickLinks = merged.quickLinks.map((link, i) => ({
-        ...link,
-        addedAt: typeof link.addedAt === 'number' ? link.addedAt : i,
-        color: typeof link.color === 'string' ? link.color : randomLinkColor(),
-      }))
-      return merged
+      return { ...defaults, ...stored }
     }
   } catch {
     // Ignore unavailable/corrupt storage and fall back to defaults.

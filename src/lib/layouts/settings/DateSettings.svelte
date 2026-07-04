@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { settings } from '../../state/settings.svelte';
-  import { clock } from '../../state/clock.svelte';
-  import { formatDate, dateFormatIds } from '../../utils/time';
-  import { Checkbox } from '../../components';
+  import { settings } from '@lib/state/settings.svelte';
+  import { clock } from '@lib/state/clock.svelte';
+  import { formatDate, dateFormatIds } from '@lib/utils/time';
+  import { Checkbox } from '@lib/components';
 </script>
 
 

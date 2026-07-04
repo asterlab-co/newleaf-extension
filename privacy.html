@@ -35,23 +35,38 @@
           U+A720-A7FF;
       }
 
+
       :root {
-        --color-willow-50: hsl(75 50% 64%);
-        --color-shadow-105: hsl(200 20% 20%);
+        /* main colors */
+        --color-mist: hsl(200 10% 90%); /* #E3E6E8 */
+        --color-shadow: hsl(200 20% 20%); /* #29363D */
+        --color-willow: hsl(75 50% 64%); /* #BAD175 */
 
-        --color-slate-10: hsl(200 10% 98%);
-        --color-slate-40: hsl(200 10% 72%);
+        /* tints & shades */
+        --color-mist-10: hsl(from var(--color-mist) h s 98%);
+        --color-mist-20: hsl(from var(--color-mist) h s 90%);
+        --color-mist-40: hsl(from var(--color-mist) h s 72%);
+        --color-mist-80: hsl(from var(--color-mist) h s 40%);
+        --color-shadow-105: hsl(from var(--color-shadow) h s 15%);
+        --color-willow-50: hsl(from var(--color-willow) h s 64%);;
 
-        --color-foreground-strong: hsl(from var(--color-slate-10) h s l / 0.9);
-        --color-foreground-default: hsl(from var(--color-slate-10) h s l / 0.72);
-        --color-foreground-subtle: hsl(from var(--color-slate-10) h s l / 0.5);
+
+        /*
+          semantic tokens
+        */
+
+        --color-foreground-strong: var(--color-mist-10);
+        --color-foreground-default: var(--color-mist-20);
+        --color-foreground-subtle: var(--color-mist-40);
 
         --color-accent-default: var(--color-willow-50);
         --color-background-default: var(--color-shadow-105);
+        --color-border-subtle: hsl(from var(--color-mist-80) h s l / .3);
 
         --font-family-text: 'Outfit', sans-serif;
       }
 
+      
       * {
         box-sizing: border-box;
         margin: 0;
@@ -63,18 +78,18 @@
       }
 
       body {
+        -webkit-font-smoothing: antialiased;
         background: var(--color-background-default);
         color: var(--color-foreground-default);
-        font: normal 1.0625rem var(--font-family-text);
-        letter-spacing: 1%;
-        line-height: 1.65;
+        font: normal 1rem var(--font-family-text);
+        letter-spacing: 2%;
+        line-height: 1.6;
         min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
       }
 
       main {
         margin: 0 auto;
-        max-width: 44rem;
+        max-width: 50rem;
         padding: clamp(2.5rem, 6vw, 5rem) 1.5rem 6rem;
       }
 
@@ -120,7 +135,7 @@
 
       .callout {
         background: var(--color-background-default);
-        border: 1px solid hsl(from var(--color-slate-10) h s l / 0.1);
+        border: 1.5px solid var(--color-border-subtle);
         border-left: 3px solid var(--color-accent-default);
         border-radius: 0.75rem;
         color: var(--color-foreground-strong);
@@ -165,7 +180,7 @@
       }
 
       footer {
-        border-top: 1px solid hsl(from var(--color-slate-10) h s l / 0.1);
+        border-top: 1.5px solid var(--color-border-subtle);
         color: var(--color-foreground-subtle);
         font-size: 0.9rem;
         margin-top: 4rem;

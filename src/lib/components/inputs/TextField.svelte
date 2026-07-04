@@ -56,11 +56,10 @@
 
   .text-field__input {
     background: transparent;
-    border: 1px solid var(--color-slate-80);
-    border-radius: 0.5rem;
+    border: 1.5px solid var(--color-border-default);
+    border-radius: 0.75rem;
     color: inherit;
     font: inherit;
-    font-size: 0.9375rem;
     padding: 0.5rem 0.75rem;
     width: 100%;
   }

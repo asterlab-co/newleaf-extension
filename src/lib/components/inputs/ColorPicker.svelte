@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LINK_COLOR_PRESETS } from '../../utils/links'
+  import { LINK_COLOR_PRESETS } from '@lib/utils/links'
 
   let { value = $bindable() }: { value: string } = $props()
 
