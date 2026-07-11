@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "newleaf",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "minimum_chrome_version": "119",
   "description": "Beautiful, calm, and fast new tab page with date, time, and your favorite links. No clutter, no permissions, no tracking.",
   "icons": {
