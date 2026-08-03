@@ -24,4 +24,8 @@
 
 :root {
   --font-family-text: 'Outfit', sans-serif;
+
+  --font-size-regular: 1rem;
+  --font-size-small: .875rem;
+  --font-size-xsmall: .75rem;
 }

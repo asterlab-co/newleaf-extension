@@ -1,10 +1,23 @@
+import { rmSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+
+// public/ is copied into dist/ wholesale, gitignored files included, so macOS
+// Finder metadata rides along into the uploaded extension package. Sweep it
+// back out after the copy.
+function stripFinderMetadata(): Plugin {
+  return {
+    name: 'strip-finder-metadata',
+    closeBundle() {
+      rmSync(resolve(__dirname, 'dist/.DS_Store'), { force: true })
+    },
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte(), stripFinderMetadata()],
   resolve: {
     alias: {
       '@lib': resolve(__dirname, 'src/lib'),

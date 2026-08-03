@@ -3,15 +3,18 @@
 
   let {
     checked = $bindable(),
+    onChange,
     children,
   }: {
     checked: boolean
+    /** For callers whose checked state is derived and can't be bound directly. */
+    onChange?: (checked: boolean) => void
     children: Snippet
   } = $props()
 </script>
 
 <label class="check">
-  <input type="checkbox" bind:checked />
+  <input type="checkbox" bind:checked onchange={() => onChange?.(checked)} />
   {@render children()}
 </label>
 

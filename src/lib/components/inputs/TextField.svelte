@@ -51,7 +51,8 @@
 
   .text-field__label {
     color: var(--color-foreground-subtle);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xsmall);
+    letter-spacing: 6%;
   }
 
   .text-field__input {

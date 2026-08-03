@@ -11,6 +11,11 @@ interface Settings {
   showSeconds: boolean
   showDate: boolean
   showLinks: boolean
+  showBackgroundNote: boolean
+  /** Keep every bundled image in rotation, ignoring `backgroundIds`. */
+  useAllBackgrounds: boolean
+  /** File names of the backgrounds the user picked, when not using all. */
+  backgroundIds: string[]
   quickLinks: QuickLink[]
   linkSort: LinkSort
 }
@@ -22,6 +27,9 @@ const defaults: Settings = {
   showSeconds: false,
   showDate: true,
   showLinks: true,
+  showBackgroundNote: true,
+  useAllBackgrounds: true,
+  backgroundIds: [],
   quickLinks: [],
   linkSort: 'alpha',
 }

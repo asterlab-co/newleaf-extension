@@ -3,6 +3,7 @@
   import DateSettings from './DateSettings.svelte'
   import TimeSettings from './TimeSettings.svelte'
   import LinksSettings from './LinksSettings.svelte'
+  import BackgroundSettings from './BackgroundSettings.svelte'
 
   let { open = false, onBack }: { open?: boolean; onBack: () => void } = $props()
 
@@ -10,6 +11,7 @@
     { id: 'date', label: 'Date' },
     { id: 'time', label: 'Time' },
     { id: 'links', label: 'Links' },
+    { id: 'background', label: 'Background' },
   ]
   let activeTab = $state('date')
 </script>
@@ -31,6 +33,10 @@
     {:else if activeTab === 'links'}
       <div role="tabpanel" id="panel-links" aria-labelledby="tab-links">
         <LinksSettings />
+      </div>
+    {:else if activeTab === 'background'}
+      <div role="tabpanel" id="panel-background" aria-labelledby="tab-background">
+        <BackgroundSettings />
       </div>
     {/if}
   </DrawerContent>

@@ -10,15 +10,18 @@
     children: Snippet
   } = $props()
 
-  // Fade the image in only once it has actually loaded, so a new tab shows a
-  // calm reveal over the base color instead of a pop-in. If it never loads,
-  // the layer simply stays invisible.
-  let loaded = $state(false)
+  // Only paint an image once it has actually loaded, so a new tab shows a calm
+  // reveal over the base color instead of a pop-in, and swapping backgrounds
+  // keeps the old one until the next is ready. If it never loads, the layer
+  // simply stays invisible. Late loads from a superseded URL are discarded.
+  let shown = $state<string | undefined>(undefined)
   $effect(() => {
     if (!background) return
+    let current = true
     const img = new Image()
-    img.onload = () => (loaded = true)
+    img.onload = () => { if (current) shown = background }
     img.src = background
+    return () => { current = false }
   })
 </script>
 
@@ -26,8 +29,8 @@
   {#if background}
     <div
       class="screen__bg"
-      class:screen__bg--visible={loaded}
-      style:background-image={`url("${background}")`}
+      class:screen__bg--visible={shown}
+      style:background-image={shown ? `url("${shown}")` : undefined}
       aria-hidden="true"
     ></div>
   {/if}
@@ -59,7 +62,7 @@
     -webkit-backdrop-filter: blur(1.5rem);
     bottom: 0;
     content: '';
-    height: 50rem;
+    height: 20rem;
     mask-image: linear-gradient(to bottom, transparent, black);
     -webkit-mask-image: linear-gradient(to bottom, transparent, black);
     position: absolute;
@@ -70,7 +73,7 @@
     background: linear-gradient(to bottom, transparent, var(--color-background-dark) 90%);
     bottom: 0;
     content: '';
-    height: 50rem;
+    height: 40rem;
     position: absolute;
     width: 100%;
   }

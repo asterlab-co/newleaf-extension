@@ -61,3 +61,9 @@ icon on the newleaf card in `chrome://extensions` and open a new tab again.
 The bundled background images are AI-generated (created with Google's Nano
 Banana Pro model). No attribution is required, and they are free to use,
 modify, and redistribute along with the rest of this repository.
+
+Each image can carry a location label — the real place its scene evokes, not a
+photo credit — shown as a small caption in the bottom-right corner and hideable
+under **Settings → Background**. The labels live in the `locations` map in
+[src/lib/utils/backgrounds.ts](src/lib/utils/backgrounds.ts), keyed by file
+name; an image with no entry simply shows no caption.

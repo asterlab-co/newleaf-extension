@@ -10,16 +10,12 @@ body {
   width: 100%;
 }
 
-html {
-  font: normal 16px sans-serif;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   background: var(--color-background-default);
   color: var(--color-foreground-default);
   display: flow-root;
-  font: normal 1em var(--font-family-text);
+  font: normal var(--font-size-regular) var(--font-family-text);
   font-variant-numeric: tabular-nums;
   letter-spacing: 2%;
   line-height: 1.6;
